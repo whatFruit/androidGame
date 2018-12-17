@@ -112,7 +112,9 @@ public class touchController : MonoBehaviour {
         }
     }
 
-    //generate profileList, and hand reference back to caller
+    /// <summary>
+    /// generate profileList, and hand reference back to caller
+    /// </summary>
     public static List<touchProfile> createProfileList()
     {
         currentTouches = new List<touchProfile>();

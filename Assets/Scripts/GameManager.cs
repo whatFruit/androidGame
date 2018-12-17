@@ -2,12 +2,27 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class GameManager : MonoBehaviour {
+public class GameManager: MonoBehaviour {
+
+    //Singleton pattern for gameManager
+    public static GameManager GM;
+
+    //gloabal neccisities
+    public List<touchProfile> touchProf;
 
     private void Awake()
     {
-        //hook up touchController's sanitized touch location data to lineSegment
-        lineSegment.setTouchProfileList(touchController.createProfileList());
+        if (GM == null)
+        {
+            GM = this;
+        }
+        else if (GM != this)
+        {
+            Destroy(gameObject);
+        }
+
+        DontDestroyOnLoad(GM);
+        setupGame();
     }
 
     // Use this for initialization
@@ -19,4 +34,14 @@ public class GameManager : MonoBehaviour {
 	void Update () {
 		
 	}
+
+
+    /// <summary>
+    /// initiates global components/systems
+    /// </summary>
+    public void setupGame()
+    {
+        //hook up touchController's sanitized touch location data to GM
+        touchProf = touchController.createProfileList();
+    }
 }
